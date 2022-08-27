@@ -23,24 +23,19 @@ public:
             return false;
     }
 
-    void push(int size)
+    void push(int element)
     {
-        int element;
-        for(int i = 1; i <= size; i++)
-        {
-
-        cout << "Enter the element: " <<endl;
-        cin >> element;
         if (size - top > 1)
         {
             top++;
             arr[top] = element;
+            cout <<"Item pushed" <<endl;
         }
         else
         {
             cout << "Stack overflow" << endl;
         }
-        }
+        
     }
 
     void pop()
@@ -48,8 +43,10 @@ public:
         if (isEmpty())
             cout << "Stack underflow" << endl;
         else
+        {
             top--;
             cout << "Item popped" <<endl;
+        }
     }
 
     void display()
@@ -78,7 +75,7 @@ public:
 
 int main()
 {
-    Stack st(1000);
+    Stack st(5);
     int n, ch;
 
     do
@@ -87,13 +84,14 @@ int main()
         cout << "1. Push()" << endl;
         cout << "2. Pop()" << endl;
         cout << "3. Display" << endl;
-        cout << "4. Exit" << endl;
+        cout << "4. Peek" << endl;
+        cout << "5. Exit" << endl;
         cout <<"Enter your Choice: " <<endl;
         cin >> ch;
         switch(ch)
         {
             case 1:
-            cout <<"Enter the size: ";
+            cout <<"Enter the element: ";
             cin >> n;
             st.push(n);
             break;
@@ -103,11 +101,14 @@ int main()
             case 3: st.display();
             break;
 
-            case 4: 
+            case 4: cout << "The top element is "<<st.peek() << endl;
+            break;
+
+            case 5:
             break;
             default:
             cout << "Wrong choice" << endl;
         }
-    } while (ch!=4);
+    } while (ch!=5);
     return 0;
 }
