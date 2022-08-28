@@ -213,10 +213,84 @@ void deleteafternode(struct Node* head)
     free(tail);
 }
 
+struct Node* reversell(struct Node* head)
+{
+    struct Node* prev = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* curr = head;
+
+    prev = NULL;
+
+    while(curr != NULL)
+    {
+        struct Node* forward = curr -> next;
+        curr -> next = prev;
+        prev = curr;
+        curr = forward;
+    }
+
+    return prev;
+}
+
+struct Node* solve(struct Node* head, struct Node* head2)
+{
+    if(head -> next == NULL)
+    {
+        head -> next = head2;
+        return head;
+    }
+    struct Node* curr1 = head;
+    struct Node* next1 = curr1 -> next;
+    struct Node* curr2 = head2;
+    struct Node* next2 = curr2 -> next;
+
+
+    while(next1 != NULL && curr2 != NULL)
+    {
+
+        if((curr1 -> data <= curr2 -> data) && (curr2 -> data <= next1 -> data))
+        {
+            curr1 -> next = curr2;
+            next2 = curr2 -> next;
+            curr2 -> next = next1;
+
+            curr1 = curr2;
+            curr2 = next2;
+        }
+        else
+        {
+            curr1 = next1;
+            next1 = next1 -> next;
+
+            if(next1 == NULL)
+            {
+                curr1 -> next = curr2;
+                return head;
+            }
+        }
+    }
+    return head;
+}
+
+struct Node* mergesortedll(struct Node* head, struct Node* head2)
+{
+    if(head == NULL)
+        return head2;
+    if(head2 == NULL)
+        return head;
+
+    if(head -> data < head2 -> data)
+        return solve(head, head2);
+    else
+        return solve(head2, head);
+
+}
+
 int main()
 {
     struct Node *node1 = (struct Node *)malloc(sizeof(struct Node));
     struct Node *head = node1;
+    struct Node *head2 = node1;
+
 
     int ch;
 
@@ -231,7 +305,9 @@ int main()
         printf("7. Delete at end\n");
         printf("8. Delete before a node\n");
         printf("9. Delete after a node\n");
-        printf("10. Exit\n");
+        printf("10. Reverse a linked list\n");
+        printf("11. Merge two sorted linked list\n");
+        printf("12. Exit\n");
         printf("Enter your choice: ");
 
         scanf("%d", &ch);
@@ -281,8 +357,23 @@ int main()
             deleteafternode(head);
             print(head);
             break;
+
+        case 10: 
+            head = reversell(head);
+            print(head);
+            break;
+
+        case 11:
+            head2 = createlinkedlist();
+            head = mergesortedll(head, head2);
+            print(head);
+
+        case 12:
+            break;
+        default:
+            printf("Wrong choice");
         }
-    } while (ch != 10);
+    } while (ch != 12);
 
     return 0;
 }
