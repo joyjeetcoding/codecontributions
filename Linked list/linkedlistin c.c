@@ -49,23 +49,22 @@ struct Node *insertathead(struct Node *head)
     return head;
 }
 
-void insertatend(struct Node* head) 
+void insertatend(struct Node *head)
 {
-    struct Node* temp = head;
-    struct Node* newnode = (struct Node*)malloc(sizeof(struct Node));
-    
-    while(temp -> next != NULL)
+    struct Node *temp = head;
+    struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
+
+    while (temp->next != NULL)
     {
-        temp = temp -> next;
+        temp = temp->next;
     }
 
     printf("Enter the value to be inserted at the end: ");
-    scanf("%d",&newnode->data);
+    scanf("%d", &newnode->data);
 
     temp->next = newnode;
     temp = newnode;
-    temp ->next = NULL;
-
+    temp->next = NULL;
 }
 
 void print(struct Node *head)
@@ -80,56 +79,56 @@ void print(struct Node *head)
     printf("\n");
 }
 
-void insertbeforenode(struct Node* head)
+void insertbeforenode(struct Node *head)
 {
-    struct Node* temp = head;
-    struct Node* newnode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node *temp = head;
+    struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
     int key;
 
     printf("Enter the position of the node so that a value can inserted before it: ");
-    scanf("%d",&key);
+    scanf("%d", &key);
 
-    while(temp->next->key != key)
+    while (temp->next->key != key)
     {
         temp = temp->next;
     }
 
     printf("Enter the value to be inserted: ");
-    scanf("%d",&newnode -> data);
+    scanf("%d", &newnode->data);
 
-    newnode -> next = temp -> next;
-    temp -> next = newnode;
+    newnode->next = temp->next;
+    temp->next = newnode;
     temp = newnode;
 }
 
-void insertafternode(struct Node* head)
+void insertafternode(struct Node *head)
 {
-    struct Node* temp = head;
-    struct Node* newnode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node *temp = head;
+    struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
 
     int key;
 
     printf("Enter the key after which a value wil be inserted: ");
-    scanf("%d",&key);
+    scanf("%d", &key);
 
-    while(temp -> next -> key <= key)
+    while (temp->next->key <= key)
     {
-        temp = temp -> next;
+        temp = temp->next;
     }
 
     printf("Enter the value: ");
-    scanf("%d",&newnode -> data);
+    scanf("%d", &newnode->data);
 
-    newnode -> next = temp-> next;
-    temp -> next = newnode;
+    newnode->next = temp->next;
+    temp->next = newnode;
     temp = newnode;
 }
 
-struct Node* deleteathead(struct Node* head)
+struct Node *deleteathead(struct Node *head)
 {
-    struct Node* temp = head;
+    struct Node *temp = head;
 
-    if(temp -> next == NULL)
+    if (temp->next == NULL)
     {
         free(temp);
         head = NULL;
@@ -141,6 +140,77 @@ struct Node* deleteathead(struct Node* head)
     }
 
     return head;
+}
+
+struct Node* deleteatend(struct Node *head)
+{
+    struct Node *tail = head;
+    struct Node *temp = head;
+
+    if (tail->next == NULL)
+    {
+        free(tail);
+        return tail;
+    }
+
+    else
+    {
+
+        while (tail->next != NULL)
+        {
+            tail = tail->next;
+        }
+
+        while (temp->next != tail)
+        {
+            temp = temp->next;
+        }
+
+        free(tail);
+        tail = temp;
+        tail -> next = NULL;
+
+    }
+    return tail;
+}
+
+void deletebeforenode(struct Node* head)
+{
+    struct Node* tail = head;
+    struct Node* temp = head;
+
+    int key;
+
+    printf("Enter the key value so that the previous nde can be deleted: ");
+    scanf("%d",&key);
+
+    while(tail -> next -> key != key)
+    {
+        temp = tail;
+        tail = tail -> next;
+    }
+    temp -> next = tail->next;
+    free(tail);
+
+}
+
+void deleteafternode(struct Node* head)
+{
+    struct Node* tail = head;
+    struct Node* temp = head;
+
+    int key;
+    printf("Enter the node after which the next node will be deleted: ");
+    scanf("%d",&key);
+
+    while(temp ->next -> key <= key)
+    {
+        temp = temp -> next;
+        tail = temp -> next;
+    }
+
+    temp -> next = tail -> next;
+    free(tail);
 }
 
 int main()
@@ -182,7 +252,7 @@ int main()
             print(head);
             break;
 
-        case 4: 
+        case 4:
             insertbeforenode(head);
             print(head);
             break;
@@ -192,13 +262,23 @@ int main()
             print(head);
             break;
 
-        case 6: 
+        case 6:
             head = deleteathead(head);
             print(head);
             break;
 
-        case 7: 
-            deleteatend(head);
+        case 7:
+            head = deleteatend(head);
+            print(head);
+            break;
+
+        case 8: 
+            deletebeforenode(head);
+            print(head);
+            break;
+
+        case 9: 
+            deleteafternode(head);
             print(head);
             break;
         }
