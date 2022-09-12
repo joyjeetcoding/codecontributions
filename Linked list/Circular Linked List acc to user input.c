@@ -41,6 +41,26 @@ struct Node *circularLL()
     return head;
 }
 
+struct Node* delbeg(struct Node* head, struct Node *tail)
+{
+    struct Node* temp;
+
+    if(head == NULL)
+        return NULL;
+    else if(head -> next == head)
+    {
+        head = NULL;
+        free(head);
+    }
+    temp = head;
+
+    tail -> next = head -> next;
+
+    free(temp);
+    head = tail -> next;
+    return head;
+}
+
 void print(struct Node *head)
 {
     struct Node *temp = head;
@@ -63,10 +83,10 @@ int main()
     do
     {
         printf("1. Create a Circular Linked List\n");
-        printf("2. Insert a node at the beginning\n");
-        printf("3. Insert a node at the end\n");
-        printf("4. Insert a node between two nodes\n");
-        printf("5. Exit\n")
+        printf("2. Delete a node at the beginning\n");
+        printf("3. Delete a node at the end\n");
+        printf("4. Delete a node of a given index\n");
+        printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &ch);
 
@@ -76,6 +96,12 @@ int main()
             head = circularLL(head);
             print(head);
             break;
+
+        case 2:
+            head = delbeg(head, tail);
+            print(head);
+            break;
+
         }
     } while (ch != 5);
 
