@@ -67,9 +67,6 @@ void display()
 
 int main()
 {
-    struct Node *node1 = (struct Node *)malloc(sizeof(struct Node));
-    struct Node *head = node1;
-
     int ch;
 
     do
