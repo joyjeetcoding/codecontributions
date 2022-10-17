@@ -50,62 +50,59 @@ void push_rear()
 
 void pop_front()
 {
-    if(isEmpty())
-        cout << "Queue is empty" << endl;
+    if (front == -1) {
+      cout<<"Queue Underflow\n";
+      return ;
+   }
+   cout<<"Element deleted from queue is : "<<deque[front]<<endl;
 
-    else if(front == rear)  //single element
-    {
-        cout << "Deleted element is " << deque[front] << endl;
-        front = -1;
-        rear = -1;
-    }
-
-    else if(front == n-1)       //cyclic nature
-    {
-        cout << "Deleted element is " << deque[front] << endl;
-        front = 0;
-    }
-
-    else
-    {
-        cout << "Deleted element is " << deque[front] << endl;
-        front++;
-    }
+   if (front == rear) {
+      front = -1;
+      rear = -1;
+   } else {
+      if (front == n - 1)
+      front = 0;
+      else
+      front = front + 1;
+   }
 }
 
 void display()
 {
-    if(front = rear == -1)
+    int f = front, r = rear;
+    if(front == -1)
     {
         cout << "Nothing to display" << endl;
+        // return;
     }
-    cout << "Queue elements are: " << endl;
-    if(front <= rear)
+    // cout << "Queue elements are: " << endl;
+    else if(f <= r)
     {
-        while (front <= rear)
+        while (f <= r)
         {
-            cout << deque[front] << " ";
-            front++;
+            cout << deque[f] << " ";
+            f++;
         }
     }
     else
     {
-        while(front <= n-1)
+        while(f <= n-1)
         {
-            cout << deque[front] << " ";
-            front++;
+            cout << deque[f] << " ";
+            f++;
         }
 
 
-        front = 0;
+        f = 0;
 
-        while(front <= rear)
+        while(f <= r)
         {
-            cout << deque[front] << " ";
-            front++;
+            cout << deque[f] << " ";
+            f++;
         }
         
     }
+    cout << endl;
     
 }
 
