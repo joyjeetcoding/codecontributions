@@ -106,6 +106,57 @@ void display()
     
 }
 
+void push_front()
+{
+    int data;
+    cout << "Enter the data: ";
+    cin >> data;
+
+    if(isFull())
+    {
+        cout << "Queue is full" << endl;
+    }
+
+    else if(front == -1) //single element
+    {
+        front = 0;
+        rear = 0;
+    }
+    else if(front == 0 && rear != n-1) //cyclic nature
+    {
+        front = n - 1;
+    }
+
+    else    //normal flow
+        front--;
+
+    deque[front]=data;
+}
+
+void pop_rear()
+{
+    if(isEmpty())
+    {
+        cout << "Queue is empty" << endl;
+        return;
+    }
+    
+    cout << "Deleted element is " << deque[rear] << endl;
+    
+    if(front == rear)      //single element
+    {
+        rear = -1;
+        front = -1;
+    }
+
+    else if(rear == 0)  //cyclic nature
+    {
+        rear = n - 1;
+    }
+    else
+        rear--;
+}
+
 int main()
 {
     int ch;
@@ -123,8 +174,8 @@ int main()
         switch (ch)
         {
         case 1:
-            // push_front();
-            // break;
+            push_front();
+            break;
 
         case 2:
             pop_front();
@@ -134,7 +185,7 @@ int main()
         push_rear();
         break;
 
-        case 4:
+        case 4: pop_rear();
         break;
 
         case 5:
