@@ -37,7 +37,7 @@ node* buildTree(node* root) {
 void levelOrderTraversal(node* root) {
     queue<node*> q;
     q.push(root);
-    q.push(NULL);
+    q.push(NULL);  //separator daal diya kyu ki root node mein sirf ek hi element rehta hai
 
     while(!q.empty()) {
         node* temp = q.front();
@@ -47,7 +47,7 @@ void levelOrderTraversal(node* root) {
             //purana level complete traverse ho chuka hai
             cout << endl;
             if(!q.empty()) { 
-                //queue still has some child ndoes
+                //queue still has some child nodes
                 q.push(NULL);
             }  
         }
@@ -77,7 +77,7 @@ int main() {
     root = buildTree(root);
     //1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1 
     //level order
-    cout << "Printing the level order tracersal output " << endl;
+    cout << "Printing the level order traversal output " << endl;
     levelOrderTraversal(root);
 
     return 0;
