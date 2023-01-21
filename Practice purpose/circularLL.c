@@ -5,46 +5,37 @@ struct Node
 {
     int data;
     struct Node *next;
-    struct Node *prev;
 };
+
+struct Node* head = NULL;
+struct Node* tail = NULL;
 
 struct Node *createDoubly()
 {
-    struct Node *head = (struct Node*)malloc(sizeof(struct Node));
-    int n, data;
-    struct Node *tail = head;
+    int n;
     printf("Enter the no. of nodes: ");
     scanf("%d", &n);
 
     for (int i = 1; i <= n; i++)
     {
-        printf("Enter the data: ");
-        scanf("%d", &data);
+        struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+        printf("Enter the data: "); 
+        scanf("%d", &temp -> data);
 
-        if (i == 1)
+        if(head == NULL)
         {
-            tail->data = data;
-            tail->prev = NULL;
-        }
-
-        else if (i == n)
-        {
-            struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
-            temp->data = data;
-            temp->next = NULL;
-            tail->next = temp;
-            temp->prev = tail;
+            head = temp;
             tail = temp;
+            tail -> next = head;
         }
 
         else
         {
-            struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
-            temp->data = data;
-            tail->next = temp;
-            temp->prev = tail;
+            tail -> next = temp;
             tail = temp;
+            tail -> next = head;
         }
+
     }
     return head;
 }
@@ -53,70 +44,72 @@ void print(struct Node *head)
 {
     struct Node *temp = head;
 
-    while (temp != NULL)
+    do
     {
-        printf("%d ", temp->data);
-        temp = temp->next;
-    }
+        printf("%d ",temp->data);
+        temp = temp -> next;
+    } while (temp != head);
     printf("\n");
 }
 
 struct Node* insertatbeg(struct Node* head)
 {
+    struct Node* temp2 = head;
     struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
     printf("Enter the data: ");
     scanf("%d",&temp -> data);
 
-    temp -> prev = NULL;
+    while(temp2 -> next != head)
+    {
+        temp2 = temp2 -> next;
+    }
+
     temp -> next = head;
-    head -> prev = temp;
     head = temp;
+
+    temp2 -> next = head;
 
     return head;
 }
 
 struct Node* insertatmid(struct Node* head)
 {
-    int n;
-    struct Node* temp1 = head;
-    struct Node* temp2 = (struct Node*)malloc(sizeof(struct Node));
-
-    printf("Enter the data after which you want to insert: ");
-    scanf("%d",&n);
-
-    while(temp1 -> data != n)
-    {
-        temp1 = temp1 -> next;
-    }
-
-    printf("Enter the data: ");
-    scanf("%d", &temp2 -> data);
-
-    temp2 -> next = temp1 -> next;
-    temp1 -> next -> prev = temp2;
-    temp1 -> next = temp2;
-    temp2 -> prev = temp1;
-
-    return head;
-}
-
-struct Node* insertatend(struct Node* head)
-{
-    struct Node* tail = head;
+    struct Node* temp2 = head;
     struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    int n;
 
-    while(tail -> next != NULL)
+    printf("Enter the node data after which you want to insert: ");
+    scanf("%d", &n);
+
+    while(temp2 -> data != n)
     {
-        tail = tail -> next;
+        temp2 = temp2 -> next;
     }
 
     printf("Enter the data: ");
     scanf("%d", &temp -> data);
 
-    temp -> next = NULL;
-    tail -> next = temp;
-    temp -> prev = tail;
-    tail = temp;
+    temp -> next = temp2 -> next;
+    temp2 -> next = temp;
+
+    return head;
+    
+}
+
+struct Node* insertatend(struct Node* head)
+{
+    struct Node* temp = head;
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    printf("Enter the data: ");
+    scanf("%d", &newNode -> data);
+
+    while(temp -> next != head)
+    {
+        temp = temp -> next;
+    }
+    newNode -> next = head;
+    temp -> next = newNode;
 
     return head;
 }
@@ -124,11 +117,17 @@ struct Node* insertatend(struct Node* head)
 struct Node* delbeg(struct Node* head)
 {
     struct Node* temp = head;
-    head = head -> next;
-    head -> prev = NULL;
-    temp -> next = NULL;
-    temp ->prev = NULL;
+    struct Node* tail = head;
 
+
+    while(tail -> next != head)
+    {
+        tail = tail -> next;
+    }
+    head = head -> next;
+    tail -> next = head;
+
+    temp -> next = NULL;
     free(temp);
 
     return head;
@@ -136,25 +135,24 @@ struct Node* delbeg(struct Node* head)
 
 struct Node* delmid(struct Node* head)
 {
-    struct Node* temp1 = head;
+    struct Node* temp = head;
     struct Node* temp2 = head -> next;
     int n;
 
-    printf("Enter the no. u want to delete: ");
-    scanf("%d", &n);
+    printf("Enter the no. that you want to delete: ");
+    scanf("%d",&n);
 
     while(temp2 -> data != n)
     {
         temp2 = temp2 -> next;
-        temp1 = temp1 -> next;
+        temp = temp -> next;
     }
 
-    temp1 -> next = temp2 -> next;
-    temp2 -> next -> prev = temp1;
+    temp -> next = temp2 -> next;
     temp2 -> next = NULL;
-    temp2 -> prev = NULL;
 
     free(temp2);
+
 
     return head;
 }
@@ -163,16 +161,15 @@ struct Node* delend(struct Node* head)
 {
     struct Node* temp = head;
 
-    while(temp -> next -> next != NULL)
+    while(temp -> next -> next != head)
     {
         temp = temp -> next;
     }
 
     struct Node* temp2 = temp -> next;
 
-    temp -> next = NULL;
+    temp -> next = head;
     temp2 -> next = NULL;
-    temp2 -> prev = NULL;
 
     free(temp2);
 
@@ -187,10 +184,10 @@ int main()
 
     do
     {
-        printf("1. Create Doubly LL \n");
-        printf("2. Insert at beginning in Doubly LL \n");
-        printf("3. Insert at a given position in Doubly LL \n");
-        printf("4. Insert at end in Doubly LL \n");
+        printf("1. Create Circular LL \n");
+        printf("2. Insert at beginning in Circular LL \n");
+        printf("3. Insert at a given position in Circular LL \n");
+        printf("4. Insert at end in Circular LL \n");
         printf("5. Delete at beginning \n");
         printf("6. Delete a given node \n");
         printf("7. Delete at end \n");
