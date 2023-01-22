@@ -32,13 +32,13 @@ void push_rear()
         cout << "Queue is full " << endl;
     }
 
-    else if(front == -1 && rear == -1)  //first element push
+    else if(front == -1 && rear == -1)      //first element push
     {
         front = 0;
         rear = 0;
     }
 
-    else if(front != 0 && rear == n - 1) //cyclic nature
+    else if(front != 0 && rear == n - 1)    //cyclic nature
         rear = 0;
 
     else // normal flow

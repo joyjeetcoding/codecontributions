@@ -7,66 +7,72 @@ int rear = -1;
 void push()
 {
     int item;
-    printf("Enter the no. ");
-    scanf("%d", &item);
 
-    if (front == 0 && rear == n - 1) // full condition
+    printf("Enter item: ");
+    scanf("%d",&item);
+
+    if((front == 0 && rear == n - 1) || (rear == (front - 1) % (n - 1)))
     {
         printf("Overflow\n");
         return;
     }
 
-    else if (front == -1 && rear == -1) // empty condition
+    if(front == -1 && rear == -1)
     {
-        front = 0;
+        front = 0; 
         rear = 0;
     }
-
-    else // normal flow
+    else if(rear == n - 1)
+    {
+        rear = 0;
+    }
+    else
     {
         rear++;
     }
 
     queue[rear] = item;
-    printf("Value inserted\n");
+    printf("Item pushed\n");
 }
 
 void pop()
 {
-    if (front == -1) // empty condition
+    if(front == -1 && rear == -1)
     {
-        printf("Queue Underflow\n");
+        printf("Underflow\n");
         return;
     }
 
-    else if (front == rear) // full condition
+    else if(front == rear)
     {
         front = -1;
         rear = -1;
     }
-    else // normal flow
+    else
     {
         front++;
     }
-    printf("Item popped\n");
+    printf("Item Popped\n");
 }
-
 void display()
 {
-    if (front == -1 && rear == -1)
+    if(front == -1 && rear == -1)
     {
         printf("Nothing to display\n");
+        return;
     }
     else
     {
+        for(int i = front; i <= rear; i++)
+        {
+            printf("%d ",queue[i]);
+        }
+        printf("\n");
+    }
 
-    for (int i = front; i <= rear; i++)
-    {
-        printf("%d ", queue[i]);
-    }
-    printf("\n");
-    }
 }
+
+
 
 int main()
 {
