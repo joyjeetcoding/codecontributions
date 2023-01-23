@@ -11,7 +11,7 @@ int main()
     }
 
 // insertion sort
-    for(int i = 1; i < n; i++)
+    for(int i = 1; i < n; i++)      //We are starting from index 1 because we are assumming that the first element is sorted
     {
         int temp = arr[i];
         int j = i - 1;
