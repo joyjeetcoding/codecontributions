@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<time.h>
 
 int bsearch(int arr[], int item, int n)
 {
@@ -25,6 +26,8 @@ int bsearch(int arr[], int item, int n)
 
 int main()
 {
+    clock_t start_t,end_t,total_t;
+
     int arr[5];
     int n = 5, item;
 
@@ -37,9 +40,16 @@ int main()
 
     printf("Enter the no. to be search: ");
     scanf("%d", &item);
+    
 
     int bIndex;
+
+    start_t = clock();
+
     bIndex = bsearch(arr, item, n);
+
+    end_t = clock();
+    total_t = (double)(end_t - start_t)/CLOCKS_PER_SEC;
 
     if(bIndex == -1)
     {
@@ -49,6 +59,8 @@ int main()
     {
         printf("Item found at index %d and position %d", bIndex, bIndex+1);
     }
+
+    printf("\nTime executed in %f\n", total_t);
 
     return 0;
 }

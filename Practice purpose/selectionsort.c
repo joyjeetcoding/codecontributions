@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 int main()
 {
@@ -7,7 +8,7 @@ int main()
     printf("Enter the nos. to be sorted using selection sort: ");
     for(int i = 0; i < n; i++)
     {
-        scanf("%d",&arr[i]);
+        printf("%d ",rand());
     }
 
     //Selection Sort
