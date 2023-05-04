@@ -46,7 +46,7 @@ int bellmanFord(int n, int m, int src, int dest, vector<vector<int>> &edges) {
 int main()
 {
   int n, m, src, dest, temp;
-  vector<int> edges;
+  vector<vector<int>> edges;
   cout << "Enter the no. of vertices: ";
   cin >> n;
   cout << "Enter the no. of edges: ";
@@ -66,9 +66,9 @@ int main()
     }
     edges.push_back(t);
   }
-  int n = bellmanFord(n, m, src, dest, edges);
+  int x = bellmanFord(n, m, src, dest, edges);
 
-  if(n == -1)
+  if(x == -1)
   {
     cout << "-ve cycle is present";
   }
