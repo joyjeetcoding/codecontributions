@@ -13,6 +13,7 @@ bool subsum(int ind, vector<int> &ds, int s, int sum, int arr[], int n)
             cout << endl;
             return true;
         }
+        
         else
             return false;
     }
