@@ -23,7 +23,7 @@ void printf(int ind, vector<int>& ds, int arr[], int n)
 
 int main()
 {
-    int arr[3] = {3, 1, 2};
+    int arr[3] = {1, 2, 2};
     vector<int> ds;
     printf(0, ds, arr, 3);
 
